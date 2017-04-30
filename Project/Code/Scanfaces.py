@@ -1,8 +1,7 @@
 import cv2
 import os
 import argparse
-#imagesdir ="C:/Users/Sagar Doshi/Desktop/Tinder/like"
-#outputdir = "C:/Users/Sagar Doshi/Desktop/Project/Extracted"
+
 
 def get_faces(filename):
     face_cascade = cv2.CascadeClassifier('/home/zzz/anaconda2/share/OpenCV/haarcascades/haarcascade_frontalface_default.xml')
@@ -42,9 +41,11 @@ def scan_images(root_dir, output_dir):
                 num_images += 1
 
                 for face in faces:
+		#For resizing the image to 100x100
                     r = 100.0 / face.shape[1]
                     dim = (100, int(face.shape[0] * r))
                     face = cv2.resize(face, dim, interpolation=cv2.INTER_AREA)
+		#writing the image to after extraction to the output directory
                     face_filename = os.path.join(output_dir, "face{}.png".format(num_faces))
                     cv2.imwrite(face_filename, face)
                     print("\tWrote {} extracted from {}".format(face_filename, filename))
@@ -64,4 +65,4 @@ if __name__ == "__main__":
 
 scan_images(args.imagesdir, args.outputdir)
 
-#scan_images("C:\Users\Sagar Doshi\Desktop\Tinder\like", "C:\Users\Sagar Doshi\Desktop\Project\Extracted")
+
